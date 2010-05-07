@@ -1,0 +1,22 @@
+
+Building instructions for the PropEditor applet: 
+
+unzip the PropEditor.zip file provided
+	you will have README.txt, an example prop file, the HTML file, a pre-compiled/signed .jar file, and the net/widgetron/propeditorapplet directories with the .java files and SuggestionFile.txt in them
+	you may want to copy the PropEditor.jar out of this directory to avoid overwriting it when you generate your own jar
+	
+compile the java source code: 
+	javac net/widgetron/propeditorapplet/*.java
+	
+compress the classes and the SuggestionFile.txt into a Jar: 
+	jar -cf PropEditor.jar net/widgetron/propeditorapplet/*.class net/widgetron/propeditorapplet/SuggestionFile.txt
+
+create a key to sign the jar with: 
+	keytool -genkey -alias PropEditor -keystore whatever
+	[follow the prompts]
+	
+sign the jar with your created key: 
+	jarsigner PropEditor.jar PropEditor
+
+
+with the PropEditor.html and PropEditor.jar in the same directory, continue with the README.txt
