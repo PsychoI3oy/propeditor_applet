@@ -12,23 +12,23 @@ import java.io.*;
 public class PropEditor {
 
 	static private String pFileName = "";
-	static private String sFileName = "SuggestionFile.txt";
+
 	private PropFile pF; 
 	private SuggestionFile sF;
 	
 	
-	public PropEditor(String fName, String sFName){	
+	public PropEditor(String fName, BufferedReader sFile){		
 		if (fName.substring(fName.lastIndexOf('.')+1,fName.length()).equals("prop")){
 			pFileName = fName;
 			PropFile pFile = openPropFile(pFileName);
 			if( pFile != null){
 				//	System.out.println("Opened prop file");
 				this.pF = pFile;
-				openSugFile(sFileName);	
+				openSugFile(sFile);			
 			}
 		}else{
 			if(loadSession(fName)){
-				openSugFile(sFileName);	
+				openSugFile(sFile);
 			}
 		}
 			
@@ -49,11 +49,10 @@ public class PropEditor {
 		pF = null;
 	}
 	
-
-		public void openSugFile(String sugFileName){
+	public void openSugFile(BufferedReader sugFile){
 		SuggestionFile sF ;
 		try {
-			sF = new SuggestionFile(sugFileName);
+			sF = new SuggestionFile(sugFile);
 			this.sF = sF;
 		} catch (Exception e) {
 			e.printStackTrace();

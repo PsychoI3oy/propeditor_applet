@@ -13,21 +13,15 @@ import java.util.*;
 
 
 public class SuggestionFile {
-	static private String sugFileName = "SuggestionFile.txt";
 	private Hashtable<String,ArrayList<String>> sugList;
 	/**
 	 * 
 	 */
-	public SuggestionFile() throws FileNotFoundException,IOException {
-		this(sugFileName);
-	}
-	public SuggestionFile(String sFN) throws FileNotFoundException, IOException {		
-		sugFileName = sFN;
-		FileReader fh = new FileReader(sFN);
+	public SuggestionFile(BufferedReader fh) throws FileNotFoundException, IOException {				
 		sugList = parseFile(fh);	
 		fh.close();
 	}
-	public Hashtable<String,ArrayList<String>> parseFile(FileReader sFile)  throws FileNotFoundException,IOException{
+	public Hashtable<String,ArrayList<String>> parseFile(BufferedReader sFile) throws FileNotFoundException,IOException{
 		Hashtable<String,ArrayList<String>> sList = new Hashtable<String,ArrayList<String>>();
 
 		Scanner scanner = new Scanner(sFile);

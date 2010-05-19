@@ -15,7 +15,7 @@ import java.awt.event.*;
 import java.io.*;
 
 
-public class PropFileView extends JFrame{
+public class PropFileView extends JApplet{
 	/**
 	 * 
 	 */
@@ -279,23 +279,6 @@ public class PropFileView extends JFrame{
 		
 	}
 	
-	public static void main (String[] args){
-		if (args.length >= 1){
-			pFileName = args[0];
-		}else if (args.length >= 2){
-			sFileName = args[1];
-		}
-
-		PropFileView pV = new PropFileView();
-
-		pV.setVisible(true);
-
-	}
-	
-	
-	
-	
-	
 	//---------------------begin inner event listener/handler classes
 	class SaveHandler implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
@@ -329,7 +312,9 @@ public class PropFileView extends JFrame{
 							openFile.getName().length()).equals("prop"));
 					if(openFile.canRead() && isProp){
 						pFileName = openFile.getAbsolutePath();
-	pE = new PropEditor(pFileName, sFileName);
+						InputStream is = getClass().getResourceAsStream(sFileName);
+						BufferedReader sFile= new BufferedReader(new InputStreamReader(is));
+						pE = new PropEditor(pFileName, sFile);
 						if(pE.getPropFile() == null){
 							JOptionPane.showMessageDialog(jpMain, "Failed to open prop file");
 						}else if(pE.getSugFile() == null){
@@ -347,7 +332,9 @@ public class PropFileView extends JFrame{
 					File openFile = myFileChooser.getSelectedFile();
 					if(openFile.canRead()){
 						pFileName = openFile.getAbsolutePath();
-	pE = new PropEditor(pFileName, sFileName);
+						InputStream is = getClass().getResourceAsStream(sFileName);
+						BufferedReader sFile= new BufferedReader(new InputStreamReader(is));
+						pE = new PropEditor(pFileName, sFile);
 						if(pE.getPropFile() == null){
 							JOptionPane.showMessageDialog(jpMain, "Failed to open prop file");
 						}else if(pE.getSugFile() == null){
